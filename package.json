@@ -21,7 +21,7 @@
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.0.1",
     "nodeos": "^0.0.0",
-    "sharp": "^0.30.4"
+    "sharp": "^0.31.3"
   },
   "devDependencies": {
     "@oclif/test": "^2",
