@@ -1,0 +1,382 @@
+oclif-hello-world
+=================
+
+oclif example Hello World CLI
+
+[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+[![Version](https://img.shields.io/npm/v/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
+[![CircleCI](https://circleci.com/gh/oclif/hello-world/tree/main.svg?style=shield)](https://circleci.com/gh/oclif/hello-world/tree/main)
+[![Downloads/week](https://img.shields.io/npm/dw/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
+[![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
+
+<!-- toc -->
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
+# Usage
+<!-- usage -->
+```sh-session
+$ npm install -g sharpief
+$ sharpief COMMAND
+running command...
+$ sharpief (--version)
+sharpief/0.0.87 linux-x64 node-v18.13.0
+$ sharpief --help [COMMAND]
+USAGE
+  $ sharpief COMMAND
+...
+```
+<!-- usagestop -->
+# Commands
+<!-- commands -->
+* [`sharpief hello PERSON`](#sharpief-hello-person)
+* [`sharpief hello:world`](#sharpief-helloworld)
+* [`sharpief help [COMMANDS]`](#sharpief-help-commands)
+* [`sharpief plugins`](#sharpief-plugins)
+* [`sharpief plugins:install PLUGIN...`](#sharpief-pluginsinstall-plugin)
+* [`sharpief plugins:inspect PLUGIN...`](#sharpief-pluginsinspect-plugin)
+* [`sharpief plugins:install PLUGIN...`](#sharpief-pluginsinstall-plugin-1)
+* [`sharpief plugins:link PLUGIN`](#sharpief-pluginslink-plugin)
+* [`sharpief plugins:uninstall PLUGIN...`](#sharpief-pluginsuninstall-plugin)
+* [`sharpief plugins:uninstall PLUGIN...`](#sharpief-pluginsuninstall-plugin-1)
+* [`sharpief plugins:uninstall PLUGIN...`](#sharpief-pluginsuninstall-plugin-2)
+* [`sharpief plugins:update`](#sharpief-pluginsupdate)
+* [`sharpief sharpie INPUT OUTPUT`](#sharpief-sharpie-input-output)
+
+## `sharpief hello PERSON`
+
+Say hello
+
+```
+USAGE
+  $ sharpief hello PERSON -f <value>
+
+ARGUMENTS
+  PERSON  Person to say hello to
+
+FLAGS
+  -f, --from=<value>  (required) Whom is saying hello
+
+DESCRIPTION
+  Say hello
+
+EXAMPLES
+  $ oex hello friend --from oclif
+  hello friend from oclif! (./src/commands/hello/index.ts)
+```
+
+_See code: [dist/commands/hello/index.ts](https://github.com/N3m3s7s/sharpief/blob/v0.0.87/dist/commands/hello/index.ts)_
+
+## `sharpief hello:world`
+
+Say hello world
+
+```
+USAGE
+  $ sharpief hello:world
+
+DESCRIPTION
+  Say hello world
+
+EXAMPLES
+  $ oex hello world
+  hello world! (./src/commands/hello/world.ts)
+```
+
+_See code: [dist/commands/hello/world.ts](https://github.com/N3m3s7s/sharpief/blob/v0.0.87/dist/commands/hello/world.ts)_
+
+## `sharpief help [COMMANDS]`
+
+Display help for sharpief.
+
+```
+USAGE
+  $ sharpief help [COMMANDS] [-n]
+
+ARGUMENTS
+  COMMANDS  Command to show help for.
+
+FLAGS
+  -n, --nested-commands  Include all nested commands in the output.
+
+DESCRIPTION
+  Display help for sharpief.
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.8/src/commands/help.ts)_
+
+## `sharpief plugins`
+
+List installed plugins.
+
+```
+USAGE
+  $ sharpief plugins [--core]
+
+FLAGS
+  --core  Show core plugins.
+
+DESCRIPTION
+  List installed plugins.
+
+EXAMPLES
+  $ sharpief plugins
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/index.ts)_
+
+## `sharpief plugins:install PLUGIN...`
+
+Installs a plugin into the CLI.
+
+```
+USAGE
+  $ sharpief plugins:install PLUGIN...
+
+ARGUMENTS
+  PLUGIN  Plugin to install.
+
+FLAGS
+  -f, --force    Run yarn install with force flag.
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Installs a plugin into the CLI.
+  Can be installed from npm or a git url.
+
+  Installation of a user-installed plugin will override a core plugin.
+
+  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
+  the CLI without the need to patch and update the whole CLI.
+
+
+ALIASES
+  $ sharpief plugins:add
+
+EXAMPLES
+  $ sharpief plugins:install myplugin 
+
+  $ sharpief plugins:install https://github.com/someuser/someplugin
+
+  $ sharpief plugins:install someuser/someplugin
+```
+
+## `sharpief plugins:inspect PLUGIN...`
+
+Displays installation properties of a plugin.
+
+```
+USAGE
+  $ sharpief plugins:inspect PLUGIN...
+
+ARGUMENTS
+  PLUGIN  [default: .] Plugin to inspect.
+
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Displays installation properties of a plugin.
+
+EXAMPLES
+  $ sharpief plugins:inspect myplugin
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/inspect.ts)_
+
+## `sharpief plugins:install PLUGIN...`
+
+Installs a plugin into the CLI.
+
+```
+USAGE
+  $ sharpief plugins:install PLUGIN...
+
+ARGUMENTS
+  PLUGIN  Plugin to install.
+
+FLAGS
+  -f, --force    Run yarn install with force flag.
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Installs a plugin into the CLI.
+  Can be installed from npm or a git url.
+
+  Installation of a user-installed plugin will override a core plugin.
+
+  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
+  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
+  the CLI without the need to patch and update the whole CLI.
+
+
+ALIASES
+  $ sharpief plugins:add
+
+EXAMPLES
+  $ sharpief plugins:install myplugin 
+
+  $ sharpief plugins:install https://github.com/someuser/someplugin
+
+  $ sharpief plugins:install someuser/someplugin
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/install.ts)_
+
+## `sharpief plugins:link PLUGIN`
+
+Links a plugin into the CLI for development.
+
+```
+USAGE
+  $ sharpief plugins:link PLUGIN
+
+ARGUMENTS
+  PATH  [default: .] path to plugin
+
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Links a plugin into the CLI for development.
+  Installation of a linked plugin will override a user-installed or core plugin.
+
+  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
+  command will override the user-installed or core plugin implementation. This is useful for development work.
+
+
+EXAMPLES
+  $ sharpief plugins:link myplugin
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/link.ts)_
+
+## `sharpief plugins:uninstall PLUGIN...`
+
+Removes a plugin from the CLI.
+
+```
+USAGE
+  $ sharpief plugins:uninstall PLUGIN...
+
+ARGUMENTS
+  PLUGIN  plugin to uninstall
+
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Removes a plugin from the CLI.
+
+ALIASES
+  $ sharpief plugins:unlink
+  $ sharpief plugins:remove
+```
+
+## `sharpief plugins:uninstall PLUGIN...`
+
+Removes a plugin from the CLI.
+
+```
+USAGE
+  $ sharpief plugins:uninstall PLUGIN...
+
+ARGUMENTS
+  PLUGIN  plugin to uninstall
+
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Removes a plugin from the CLI.
+
+ALIASES
+  $ sharpief plugins:unlink
+  $ sharpief plugins:remove
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/uninstall.ts)_
+
+## `sharpief plugins:uninstall PLUGIN...`
+
+Removes a plugin from the CLI.
+
+```
+USAGE
+  $ sharpief plugins:uninstall PLUGIN...
+
+ARGUMENTS
+  PLUGIN  plugin to uninstall
+
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Removes a plugin from the CLI.
+
+ALIASES
+  $ sharpief plugins:unlink
+  $ sharpief plugins:remove
+```
+
+## `sharpief plugins:update`
+
+Update installed plugins.
+
+```
+USAGE
+  $ sharpief plugins:update [-h] [-v]
+
+FLAGS
+  -h, --help     Show CLI help.
+  -v, --verbose
+
+DESCRIPTION
+  Update installed plugins.
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/update.ts)_
+
+## `sharpief sharpie INPUT OUTPUT`
+
+Convert and resize input image to optimized image output
+
+```
+USAGE
+  $ sharpief sharpie INPUT OUTPUT [-v] [-h] [-q <value>] [-t <value>] [-r <value>] [-a]
+
+ARGUMENTS
+  INPUT   input image file path (source)
+  OUTPUT  encoded output image file path (target)
+
+FLAGS
+  -a, --animated
+  -h, --help             Show CLI help.
+  -q, --quality=<value>  [default: 60] Number between 1-100 to set quality of the output image
+  -r, --resize=<value>   a JSON object to pass manipulations to Sharp.js 'resize' method
+  -t, --type=<value>     [default: webp] encoder to use - choose from: jpeg, webp, avif
+  -v, --version          Show CLI version.
+
+DESCRIPTION
+  Convert and resize input image to optimized image output
+
+EXAMPLES
+  $ ./bin/dev sharpie ./samples/in/1.jpg ./samples/out/1.avif --type avif --quality 50
+  Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
+  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev sharpie ./samples/in/animated.gif ./samples/out/animated.webp --type webp --quality 90 --animated
+```
+
+_See code: [dist/commands/sharpie/index.ts](https://github.com/N3m3s7s/sharpief/blob/v0.0.87/dist/commands/sharpie/index.ts)_
+<!-- commandsstop -->
