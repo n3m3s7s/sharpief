@@ -1,5 +1,22 @@
 #!/bin/bash
-mkdir -p /var/www/sharp/dist
-tar -xf dist/sharpief-v0.0.87-66c0ab6-linux-x64.tar.gz -C /var/www/sharp/dist
-ln -s /var/www/sharp/dist/sharpief/bin/sharpief /usr/bin/sharpief
-chown -R sail:sail /var/www/sharp/dist
+binArch=x64
+tmpLatestFile=/tmp/sharpief-latest.txt
+tmpFile=/tmp/sharpief-latest.tar.gz
+installDir=~/sharp/dist
+binTarget=/usr/bin/sharpief
+curl -o $tmpLatestFile https://raw.githubusercontent.com/n3m3s7s/sharpief/main/releases/latest-${binArch}.txt
+name=$(<$tmpLatestFile)
+remoteUrl="https://raw.githubusercontent.com/n3m3s7s/sharpief/main/releases/$name"
+echo "Downloading remote file $remoteUrl into temporary file $tmpFile"
+curl -o $tmpFile $remoteUrl
+echo "Installing into $installDir"
+if [ -L ${binTarget} ] ; then
+  sudo rm $binTarget
+fi
+if [ -d "$installDir" ]; then
+  rm -rf $installDir
+fi
+mkdir -p $installDir
+tar -xf $tmpFile -C $installDir
+echo "Linking $installDir/sharpief/bin/sharpief as $binTarget"
+sudo ln -s "$installDir/sharpief/bin/sharpief" $binTarget
