@@ -16,11 +16,11 @@ oclif example Hello World CLI
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g sharpief
+$ npm install -g eve
 $ sharpief COMMAND
 running command...
 $ sharpief (--version)
-sharpief/0.0.87 linux-x64 node-v18.13.0
+eve/0.0.87 linux-x64 node-v18.13.0
 $ sharpief --help [COMMAND]
 USAGE
   $ sharpief COMMAND
@@ -65,7 +65,7 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/N3m3s7s/sharpief/blob/v0.0.87/dist/commands/hello/index.ts)_
+_See code: [dist/commands/hello/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.87/dist/commands/hello/index.ts)_
 
 ## `sharpief hello:world`
 
@@ -83,7 +83,7 @@ EXAMPLES
   hello world! (./src/commands/hello/world.ts)
 ```
 
-_See code: [dist/commands/hello/world.ts](https://github.com/N3m3s7s/sharpief/blob/v0.0.87/dist/commands/hello/world.ts)_
+_See code: [dist/commands/hello/world.ts](https://github.com/N3m3s7s/eve/blob/v0.0.87/dist/commands/hello/world.ts)_
 
 ## `sharpief help [COMMANDS]`
 
@@ -378,5 +378,5 @@ EXAMPLES
   ./bin/dev sharpie ./samples/in/animated.gif ./samples/out/animated.webp --type webp --quality 90 --animated
 ```
 
-_See code: [dist/commands/sharpie/index.ts](https://github.com/N3m3s7s/sharpief/blob/v0.0.87/dist/commands/sharpie/index.ts)_
+_See code: [dist/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.87/dist/commands/sharpie/index.ts)_
 <!-- commandsstop -->
