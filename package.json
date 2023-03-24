@@ -1,6 +1,6 @@
 {
   "name": "eve",
-  "version": "0.0.87",
+  "version": "0.0.89",
   "description": "A simple CLI customer wrapper around sharp.js",
   "author": "Fabio Politi",
   "bin": {

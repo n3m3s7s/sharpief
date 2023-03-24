@@ -82,9 +82,9 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 
 ./bin/dev sharpie ./samples/in/animated.gif ./samples/out/animated.webp --type webp --quality 90 --animated
 
-./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2sharp.webp --type webp --quality 70 --sharpen --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}
+./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2sharp.webp --type webp --quality 70 --sharpen --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
-./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2blur.webp --type webp --quality 20 --blur 10 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}
+./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2blur.webp --type webp --quality 20 --blur 10 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
 ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 `,

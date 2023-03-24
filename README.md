@@ -20,7 +20,7 @@ $ npm install -g eve
 $ sharpief COMMAND
 running command...
 $ sharpief (--version)
-eve/0.0.87 linux-x64 node-v18.13.0
+eve/0.0.89 linux-x64 node-v18.13.0
 $ sharpief --help [COMMAND]
 USAGE
   $ sharpief COMMAND
@@ -65,7 +65,7 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.87/dist/commands/hello/index.ts)_
+_See code: [dist/commands/hello/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/dist/commands/hello/index.ts)_
 
 ## `sharpief hello:world`
 
@@ -83,7 +83,7 @@ EXAMPLES
   hello world! (./src/commands/hello/world.ts)
 ```
 
-_See code: [dist/commands/hello/world.ts](https://github.com/N3m3s7s/eve/blob/v0.0.87/dist/commands/hello/world.ts)_
+_See code: [dist/commands/hello/world.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/dist/commands/hello/world.ts)_
 
 ## `sharpief help [COMMANDS]`
 
@@ -354,17 +354,20 @@ Convert and resize input image to optimized image output
 
 ```
 USAGE
-  $ sharpief sharpie INPUT OUTPUT [-v] [-h] [-q <value>] [-t <value>] [-r <value>] [-a]
+  $ sharpief sharpie INPUT OUTPUT [-v] [-h] [-q <value>] [-b <value>] [-t <value>] [-r <value>] [-a] [-s] [-n]
 
 ARGUMENTS
   INPUT   input image file path (source)
   OUTPUT  encoded output image file path (target)
 
 FLAGS
-  -a, --animated
+  -a, --animated         Do not remove animation layers
+  -b, --blur=<value>     Number between 1-100 to set bluriness of the output image. Default: 0 (disabled)
   -h, --help             Show CLI help.
-  -q, --quality=<value>  [default: 60] Number between 1-100 to set quality of the output image
+  -n, --normalize        Enhance output image contrast by stretching its luminance to cover the full dynamic range
+  -q, --quality=<value>  [default: 60] Number between 1-100 to set quality of the output image. Default: 60
   -r, --resize=<value>   a JSON object to pass manipulations to Sharp.js 'resize' method
+  -s, --sharpen          Auto sharp image
   -t, --type=<value>     [default: webp] encoder to use - choose from: jpeg, webp, avif
   -v, --version          Show CLI version.
 
@@ -376,7 +379,10 @@ EXAMPLES
   Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
   ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
   ./bin/dev sharpie ./samples/in/animated.gif ./samples/out/animated.webp --type webp --quality 90 --animated
+  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2sharp.webp --type webp --quality 70 --sharpen --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2blur.webp --type webp --quality 20 --blur 10 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 ```
 
-_See code: [dist/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.87/dist/commands/sharpie/index.ts)_
+_See code: [dist/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/dist/commands/sharpie/index.ts)_
 <!-- commandsstop -->
