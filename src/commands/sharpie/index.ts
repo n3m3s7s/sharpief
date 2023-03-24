@@ -8,7 +8,7 @@ enum Encoders {
   WEBP = "webp",
   AVIF = "avif",
   PNG = "png",
-  GIF = "gif"
+  GIF = "gif",
 }
 
 export default class Sharpie extends Command {
@@ -22,7 +22,14 @@ export default class Sharpie extends Command {
     quality: Flags.integer({
       char: "q",
       default: 60,
-      description: "Number between 1-100 to set quality of the output image",
+      description:
+        "Number between 1-100 to set quality of the output image. Default: 60",
+    }),
+    blur: Flags.integer({
+      char: "b",
+      default: 0,
+      description:
+        "Number between 1-100 to set bluriness of the output image. Default: 0 (disabled)",
     }),
     // flag with a value (-n, --name=VALUE)
     type: Flags.string({
@@ -32,10 +39,26 @@ export default class Sharpie extends Command {
     }),
     resize: Flags.string({
       char: "r",
-      description: "a JSON object to pass manipulations to Sharp.js 'resize' method",
+      description:
+        "a JSON object to pass manipulations to Sharp.js 'resize' method",
     }),
     // flag with no value (-f, --force)
-    animated: Flags.boolean({ char: "a", default: false }),
+    animated: Flags.boolean({
+      char: "a",
+      default: false,
+      description: "Do not remove animation layers",
+    }),
+    sharpen: Flags.boolean({
+      char: "s",
+      default: false,
+      description: "Auto sharp image",
+    }),
+    normalize: Flags.boolean({
+      char: "n",
+      default: false,
+      description:
+        "Enhance output image contrast by stretching its luminance to cover the full dynamic range",
+    }),
   };
 
   static args = [
@@ -58,6 +81,12 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
 ./bin/dev sharpie ./samples/in/animated.gif ./samples/out/animated.webp --type webp --quality 90 --animated
+
+./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2sharp.webp --type webp --quality 70 --sharpen --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}
+
+./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2blur.webp --type webp --quality 20 --blur 10 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}
+
+./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 `,
   ];
 
@@ -91,12 +120,14 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     }
 
     this.quality = flags.quality;
+    const sharpen = flags.sharpen;
+    const blur = flags.blur;
+    const normalize = flags.normalize;
 
     // show a warning
     this.log(
       `Converting file ${input} using "${encType}" encoder with quality ${this.quality}`
     );
-
 
     //this.exit(0);
 
@@ -107,13 +138,32 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
       this.exit(1);
     }
 
-    if(resize){
-      this.log('Piping Resize options', resize);
+    if (resize) {
+      this.log("Piping Resize options", resize);
       handle.resize(resize);
     }
 
+    if (sharpen) {
+      this.log("Auto-sharpening enabled...");
+      handle.sharpen();
+    }
+
+    if (normalize) {
+      this.log("Auto-normalizing enabled...");
+      handle.normalize();
+    }
+
+    if (blur > 0) {
+      this.log("Blurring image to number: " + blur);
+      handle.blur(blur);
+    }
+
     if (encType === Encoders.AVIF) {
-      handle.avif({ quality: this.quality, speed: 8 });
+      handle.avif({
+        quality: this.quality,
+        effort: 5,
+        chromaSubsampling: "4:2:0",
+      });
     }
 
     if (encType === Encoders.WEBP) {
@@ -121,11 +171,18 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     }
 
     if (encType === Encoders.JPEG) {
-      handle.jpeg({ mozjpeg: true, quality: this.quality, progressive: true }).flatten({ background: resize.background })
+      handle
+        .jpeg({ mozjpeg: true, quality: this.quality, progressive: true })
+        .flatten({ background: resize.background });
     }
 
     if (encType === Encoders.PNG) {
-      handle.png({ quality: this.quality, progressive: true, compressionLevel: 8, palette: true });
+      handle.png({
+        quality: this.quality,
+        progressive: true,
+        compressionLevel: 8,
+        palette: true,
+      });
     }
 
     if (encType === Encoders.GIF) {
@@ -141,7 +198,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
   async getSharpHandle(filePath: string): Promise<sharp.Sharp | null> {
     const inputBuffer = fs.readFileSync(filePath);
     return sharp(inputBuffer, {
-      animated: this.animated
+      animated: this.animated,
     });
   }
 
