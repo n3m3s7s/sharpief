@@ -42,6 +42,16 @@ export default class Sharpie extends Command {
       description:
         "a JSON object to pass manipulations to Sharp.js 'resize' method",
     }),
+    extractBefore: Flags.string({
+      char: "e",
+      description:
+        "a JSON object to pass manipulations to Sharp.js 'extract' method, BEFORE resize",
+    }),
+    extractAfter: Flags.string({
+      char: "E",
+      description:
+        "a JSON object to pass manipulations to Sharp.js 'extract' method, AFTER resize",
+    }),
     // flag with no value (-f, --force)
     animated: Flags.boolean({
       char: "a",
@@ -80,6 +90,10 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 
 ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
+./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2after.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}' --extractAfter '{"left": 10, "top": 50, "width": 100, "height": 80}'
+
+./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2before.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}' --extractBefore '{"left": 10, "top": 50, "width": 600, "height": 800}'
+
 ./bin/dev sharpie ./samples/in/animated.gif ./samples/out/animated.webp --type webp --quality 90 --animated
 
 ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2sharp.webp --type webp --quality 70 --sharpen --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
@@ -102,6 +116,12 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     const encType: string = flags.type ?? Encoders.JPEG;
     const encoders: String[] = Object.values(Encoders);
     const resize = undefined !== flags.resize ? JSON.parse(flags.resize) : null;
+    const extractBefore =
+      undefined !== flags.extractBefore
+        ? JSON.parse(flags.extractBefore)
+        : null;
+    const extractAfter =
+      undefined !== flags.extractAfter ? JSON.parse(flags.extractAfter) : null;
     this.animated = flags.animated;
 
     if (!encoders.includes(encType)) {
@@ -138,8 +158,13 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
       this.exit(1);
     }
 
+    if (extractBefore) {
+      this.log("Passing Extract.Before options", extractBefore);
+      handle.extract(extractBefore);
+    }
+
     if (resize) {
-      this.log("Piping Resize options", resize);
+      this.log("Passing Resize options", resize);
       handle.resize(resize);
       if (
         resize.hasOwnProperty("background") &&
@@ -147,6 +172,11 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
       ) {
         handle.flatten({ background: resize.background });
       }
+    }
+
+    if (extractAfter) {
+      this.log("Passing Extract.After options", extractAfter);
+      handle.extract(extractAfter);
     }
 
     if (sharpen) {
