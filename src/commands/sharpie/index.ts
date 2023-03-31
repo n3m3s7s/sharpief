@@ -141,6 +141,12 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     if (resize) {
       this.log("Piping Resize options", resize);
       handle.resize(resize);
+      if (
+        resize.hasOwnProperty("background") &&
+        "#ffffff" === resize.background
+      ) {
+        handle.flatten({ background: resize.background });
+      }
     }
 
     if (sharpen) {
