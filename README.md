@@ -103,7 +103,7 @@ DESCRIPTION
   Display help for sharpief.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.8/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.9/src/commands/help.ts)_
 
 ## `sharpief plugins`
 
@@ -123,7 +123,7 @@ EXAMPLES
   $ sharpief plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/index.ts)_
 
 ## `sharpief plugins:install PLUGIN...`
 
@@ -188,7 +188,7 @@ EXAMPLES
   $ sharpief plugins:inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/inspect.ts)_
 
 ## `sharpief plugins:install PLUGIN...`
 
@@ -228,7 +228,7 @@ EXAMPLES
   $ sharpief plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/install.ts)_
 
 ## `sharpief plugins:link PLUGIN`
 
@@ -257,7 +257,7 @@ EXAMPLES
   $ sharpief plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/link.ts)_
 
 ## `sharpief plugins:uninstall PLUGIN...`
 
@@ -305,7 +305,7 @@ ALIASES
   $ sharpief plugins:remove
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/uninstall.ts)_
 
 ## `sharpief plugins:uninstall PLUGIN...`
 
@@ -346,7 +346,7 @@ DESCRIPTION
   Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/update.ts)_
 
 ## `sharpief sharpie INPUT OUTPUT`
 
@@ -354,22 +354,25 @@ Convert and resize input image to optimized image output
 
 ```
 USAGE
-  $ sharpief sharpie INPUT OUTPUT [-v] [-h] [-q <value>] [-b <value>] [-t <value>] [-r <value>] [-a] [-s] [-n]
+  $ sharpief sharpie INPUT OUTPUT [-v] [-h] [-q <value>] [-b <value>] [-t <value>] [-r <value>] [-e <value>]
+    [-E <value>] [-a] [-s] [-n]
 
 ARGUMENTS
   INPUT   input image file path (source)
   OUTPUT  encoded output image file path (target)
 
 FLAGS
-  -a, --animated         Do not remove animation layers
-  -b, --blur=<value>     Number between 1-100 to set bluriness of the output image. Default: 0 (disabled)
-  -h, --help             Show CLI help.
-  -n, --normalize        Enhance output image contrast by stretching its luminance to cover the full dynamic range
-  -q, --quality=<value>  [default: 60] Number between 1-100 to set quality of the output image. Default: 60
-  -r, --resize=<value>   a JSON object to pass manipulations to Sharp.js 'resize' method
-  -s, --sharpen          Auto sharp image
-  -t, --type=<value>     [default: webp] encoder to use - choose from: jpeg, webp, avif
-  -v, --version          Show CLI version.
+  -E, --extractAfter=<value>   a JSON object to pass manipulations to Sharp.js 'extract' method, AFTER resize
+  -a, --animated               Do not remove animation layers
+  -b, --blur=<value>           Number between 1-100 to set bluriness of the output image. Default: 0 (disabled)
+  -e, --extractBefore=<value>  a JSON object to pass manipulations to Sharp.js 'extract' method, BEFORE resize
+  -h, --help                   Show CLI help.
+  -n, --normalize              Enhance output image contrast by stretching its luminance to cover the full dynamic range
+  -q, --quality=<value>        [default: 60] Number between 1-100 to set quality of the output image. Default: 60
+  -r, --resize=<value>         a JSON object to pass manipulations to Sharp.js 'resize' method
+  -s, --sharpen                Auto sharp image
+  -t, --type=<value>           [default: webp] encoder to use - choose from: jpeg, webp, avif
+  -v, --version                Show CLI version.
 
 DESCRIPTION
   Convert and resize input image to optimized image output
@@ -378,6 +381,8 @@ EXAMPLES
   $ ./bin/dev sharpie ./samples/in/1.jpg ./samples/out/1.avif --type avif --quality 50
   Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
   ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2after.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}' --extractAfter '{"left": 10, "top": 50, "width": 100, "height": 80}'
+  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2before.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}' --extractBefore '{"left": 10, "top": 50, "width": 600, "height": 800}'
   ./bin/dev sharpie ./samples/in/animated.gif ./samples/out/animated.webp --type webp --quality 90 --animated
   ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2sharp.webp --type webp --quality 70 --sharpen --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
   ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2blur.webp --type webp --quality 20 --blur 10 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
