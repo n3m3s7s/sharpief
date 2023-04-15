@@ -2,6 +2,7 @@ import { Command, Flags } from "@oclif/core";
 
 import * as fs from "fs";
 import * as sharp from "sharp";
+import { optimize } from "svgo";
 
 enum Encoders {
   JPEG = "jpeg",
@@ -9,6 +10,7 @@ enum Encoders {
   AVIF = "avif",
   PNG = "png",
   GIF = "gif",
+  SVG = "svg",
 }
 
 export default class Sharpie extends Command {
@@ -35,7 +37,8 @@ export default class Sharpie extends Command {
     type: Flags.string({
       char: "t",
       default: Encoders.WEBP,
-      description: "encoder to use - choose from: jpeg, webp, avif",
+      description:
+        "encoder to use - choose from: jpeg, webp, avif, png and svg",
     }),
     resize: Flags.string({
       char: "r",
@@ -72,8 +75,7 @@ export default class Sharpie extends Command {
     greyscale: Flags.boolean({
       char: "g",
       default: false,
-      description:
-        "Convert to 8-bit greyscale; 256 shades of grey",
+      description: "Convert to 8-bit greyscale; 256 shades of grey",
     }),
   };
 
@@ -109,6 +111,8 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
 ./bin/dev sharpie ./samples/in/rally-car.jpg ./samples/out/rally-car_grey.webp --type webp --quality 70 --greyscale --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+
+./bin/dev sharpie ./samples/in/logo.svg ./samples/out/logo.svg --type svg
 `,
   ];
 
@@ -157,6 +161,31 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     this.log(
       `Converting file ${input} using "${encType}" encoder with quality ${this.quality}`
     );
+
+    // if we have SVG sharpJs it not used!
+    if (encType === Encoders.SVG) {
+      let totalSavedBytes = 0;
+
+      const sourceSvg = fs.readFileSync(input);
+
+      let result;
+      try {
+        result = optimize(sourceSvg.toString(), {
+          path: input,
+        });
+
+        const savedBytes = sourceSvg.length - result.data.length;
+        const percentage = Math.round((savedBytes / sourceSvg.length) * 100);
+        totalSavedBytes += savedBytes;
+        this.log(
+          `Output to file ${output} saving "${savedBytes}" bytes (${percentage}%)`
+        );
+        fs.writeFileSync(output, result.data);
+      } catch (error) {
+        this.error(`${input}: ${error}`);
+      }
+      this.exit(0);
+    }
 
     //this.exit(0);
 
@@ -208,6 +237,8 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
       this.log("Blurring image to number: " + blur);
       handle.blur(blur);
     }
+
+    // ENCODING
 
     if (encType === Encoders.AVIF) {
       handle.avif({
