@@ -21,6 +21,7 @@
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.0.1",
     "nodeos": "^0.0.0",
+    "plaiceholder": "^2.5.0",
     "sharp": "^0.32.0",
     "svgo": "^3.0.2"
   },
