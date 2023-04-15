@@ -69,6 +69,12 @@ export default class Sharpie extends Command {
       description:
         "Enhance output image contrast by stretching its luminance to cover the full dynamic range",
     }),
+    greyscale: Flags.boolean({
+      char: "g",
+      default: false,
+      description:
+        "Convert to 8-bit greyscale; 256 shades of grey",
+    }),
   };
 
   static args = [
@@ -100,7 +106,9 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 
 ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2blur.webp --type webp --quality 20 --blur 10 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
-./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+
+./bin/dev sharpie ./samples/in/rally-car.jpg ./samples/out/rally-car_grey.webp --type webp --quality 70 --greyscale --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 `,
   ];
 
@@ -143,6 +151,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     const sharpen = flags.sharpen;
     const blur = flags.blur;
     const normalize = flags.normalize;
+    const greyscale = flags.greyscale;
 
     // show a warning
     this.log(
@@ -187,6 +196,12 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     if (normalize) {
       this.log("Auto-normalizing enabled...");
       handle.normalize();
+    }
+
+    if (greyscale) {
+      this.log("Converting to greyscale...");
+      handle.normalize();
+      handle.greyscale();
     }
 
     if (blur > 0) {
