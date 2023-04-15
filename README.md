@@ -123,7 +123,7 @@ EXAMPLES
   $ sharpief plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.6/src/commands/plugins/index.ts)_
 
 ## `sharpief plugins:install PLUGIN...`
 
@@ -188,7 +188,7 @@ EXAMPLES
   $ sharpief plugins:inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.6/src/commands/plugins/inspect.ts)_
 
 ## `sharpief plugins:install PLUGIN...`
 
@@ -228,7 +228,7 @@ EXAMPLES
   $ sharpief plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.6/src/commands/plugins/install.ts)_
 
 ## `sharpief plugins:link PLUGIN`
 
@@ -257,7 +257,7 @@ EXAMPLES
   $ sharpief plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.6/src/commands/plugins/link.ts)_
 
 ## `sharpief plugins:uninstall PLUGIN...`
 
@@ -305,7 +305,7 @@ ALIASES
   $ sharpief plugins:remove
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.6/src/commands/plugins/uninstall.ts)_
 
 ## `sharpief plugins:uninstall PLUGIN...`
 
@@ -346,7 +346,7 @@ DESCRIPTION
   Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.6/src/commands/plugins/update.ts)_
 
 ## `sharpief sharpie INPUT OUTPUT`
 
@@ -355,7 +355,7 @@ Convert and resize input image to optimized image output
 ```
 USAGE
   $ sharpief sharpie INPUT OUTPUT [-v] [-h] [-q <value>] [-b <value>] [-t <value>] [-r <value>] [-e <value>]
-    [-E <value>] [-a] [-s] [-n]
+    [-E <value>] [-a] [-s] [-n] [-g]
 
 ARGUMENTS
   INPUT   input image file path (source)
@@ -366,12 +366,13 @@ FLAGS
   -a, --animated               Do not remove animation layers
   -b, --blur=<value>           Number between 1-100 to set bluriness of the output image. Default: 0 (disabled)
   -e, --extractBefore=<value>  a JSON object to pass manipulations to Sharp.js 'extract' method, BEFORE resize
+  -g, --greyscale              Convert to 8-bit greyscale; 256 shades of grey
   -h, --help                   Show CLI help.
   -n, --normalize              Enhance output image contrast by stretching its luminance to cover the full dynamic range
   -q, --quality=<value>        [default: 60] Number between 1-100 to set quality of the output image. Default: 60
   -r, --resize=<value>         a JSON object to pass manipulations to Sharp.js 'resize' method
   -s, --sharpen                Auto sharp image
-  -t, --type=<value>           [default: webp] encoder to use - choose from: jpeg, webp, avif
+  -t, --type=<value>           [default: webp] encoder to use - choose from: jpeg, webp, avif, png and svg
   -v, --version                Show CLI version.
 
 DESCRIPTION
@@ -386,7 +387,9 @@ EXAMPLES
   ./bin/dev sharpie ./samples/in/animated.gif ./samples/out/animated.webp --type webp --quality 90 --animated
   ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2sharp.webp --type webp --quality 70 --sharpen --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
   ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2blur.webp --type webp --quality 20 --blur 10 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
-  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev sharpie ./samples/in/rally-car.jpg ./samples/out/rally-car_grey.webp --type webp --quality 70 --greyscale --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev sharpie ./samples/in/logo.svg ./samples/out/logo.svg --type svg
 ```
 
 _See code: [dist/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/dist/commands/sharpie/index.ts)_
