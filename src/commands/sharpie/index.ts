@@ -3,6 +3,7 @@ import { Command, Flags } from "@oclif/core";
 import * as fs from "fs";
 import * as sharp from "sharp";
 import { optimize } from "svgo";
+import { crop as resizecrop } from "smartcrop-sharp";
 
 enum Encoders {
   JPEG = "jpeg",
@@ -113,6 +114,8 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 ./bin/dev sharpie ./samples/in/rally-car.jpg ./samples/out/rally-car_grey.webp --type webp --quality 70 --greyscale --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
 ./bin/dev sharpie ./samples/in/logo.svg ./samples/out/logo.svg --type svg
+
+./bin/dev sharpie ./samples/in/person.jpg ./samples/out/person_sc.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
 `,
   ];
 
@@ -128,7 +131,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     const encType: string = flags.type ?? Encoders.JPEG;
     const encoders: String[] = Object.values(Encoders);
     const resize = undefined !== flags.resize ? JSON.parse(flags.resize) : null;
-    const extractBefore =
+    let extractBefore =
       undefined !== flags.extractBefore
         ? JSON.parse(flags.extractBefore)
         : null;
@@ -171,6 +174,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
       let result;
       try {
         result = optimize(sourceSvg.toString(), {
+          multipass: true,
           path: input,
         });
 
@@ -178,7 +182,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
         const percentage = Math.round((savedBytes / sourceSvg.length) * 100);
         totalSavedBytes += savedBytes;
         this.log(
-          `Output to file ${output} saving "${savedBytes}" bytes (${percentage}%)`
+          `Output to file ${output} has saved ${savedBytes} bytes (${percentage}%)`
         );
         fs.writeFileSync(output, result.data);
       } catch (error) {
@@ -194,6 +198,31 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     if (null === handle) {
       this.error("Could not read or convert input file path");
       this.exit(1);
+    }
+
+    // handle smart crop
+    if (
+      resize &&
+      resize.hasOwnProperty("fit") &&
+      ("crop" === resize.fit || "smartcrop" === resize.fit)
+    ) {
+      resize.fit = "cover";
+      resize.strategy = "attention";
+      const cropParams =  {
+        width: resize.width || null,
+        height: resize.height || null,
+      };
+      this.log("Pre-flight smartcrop options", cropParams);
+      const result = await resizecrop(input, cropParams);
+      this.log("Result", result)
+      const crop = result.topCrop;
+      // override extractBefore
+      extractBefore = {
+        width: crop.width,
+        height: crop.height,
+        left: crop.x,
+        top: crop.y,
+      };
     }
 
     if (extractBefore) {

@@ -123,7 +123,7 @@ EXAMPLES
   $ sharpief plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.6/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/index.ts)_
 
 ## `sharpief plugins:install PLUGIN...`
 
@@ -188,7 +188,7 @@ EXAMPLES
   $ sharpief plugins:inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.6/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/inspect.ts)_
 
 ## `sharpief plugins:install PLUGIN...`
 
@@ -228,7 +228,7 @@ EXAMPLES
   $ sharpief plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.6/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/install.ts)_
 
 ## `sharpief plugins:link PLUGIN`
 
@@ -257,7 +257,7 @@ EXAMPLES
   $ sharpief plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.6/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/link.ts)_
 
 ## `sharpief plugins:uninstall PLUGIN...`
 
@@ -305,7 +305,7 @@ ALIASES
   $ sharpief plugins:remove
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.6/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/uninstall.ts)_
 
 ## `sharpief plugins:uninstall PLUGIN...`
 
@@ -346,7 +346,7 @@ DESCRIPTION
   Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.6/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/update.ts)_
 
 ## `sharpief sharpie INPUT OUTPUT`
 
@@ -390,6 +390,7 @@ EXAMPLES
   ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
   ./bin/dev sharpie ./samples/in/rally-car.jpg ./samples/out/rally-car_grey.webp --type webp --quality 70 --greyscale --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
   ./bin/dev sharpie ./samples/in/logo.svg ./samples/out/logo.svg --type svg
+  ./bin/dev sharpie ./samples/in/person.jpg ./samples/out/person_sc.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
 ```
 
 _See code: [dist/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/dist/commands/sharpie/index.ts)_
