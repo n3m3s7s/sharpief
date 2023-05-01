@@ -30,7 +30,7 @@
     "@types/chai": "^4",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.9.4",
-    "@types/sharp": "^0.30.2",
+    "@types/sharp": "^0.32.0",
     "chai": "^4",
     "eslint": "^7.32.0",
     "eslint-config-oclif": "^4",
