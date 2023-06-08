@@ -294,7 +294,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     }
 
     if (encType === Encoders.WEBP) {
-      handle.webp({ quality: this.quality });
+      handle.webp({ quality: this.quality, smartSubsample: true });
     }
 
     if (encType === Encoders.JPEG) {
