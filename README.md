@@ -354,8 +354,8 @@ Convert and resize input image to optimized image output
 
 ```
 USAGE
-  $ sharpief sharpie INPUT OUTPUT [-v] [-h] [-q <value>] [-b <value>] [-t <value>] [-r <value>] [-e <value>]
-    [-E <value>] [-a] [-s] [-n] [-g]
+  $ sharpief sharpie INPUT OUTPUT [-v] [-h] [-q <value>] [-b <value>] [-M <value>] [-t <value>] [-r <value>]
+    [-e <value>] [-E <value>] [-a] [-s] [-n] [-g]
 
 ARGUMENTS
   INPUT   input image file path (source)
@@ -363,6 +363,7 @@ ARGUMENTS
 
 FLAGS
   -E, --extractAfter=<value>   a JSON object to pass manipulations to Sharp.js 'extract' method, AFTER resize
+  -M, --median=<value>         Number between 3-5 to apply median filter to the output image. Default: 0 (disabled)
   -a, --animated               Do not remove animation layers
   -b, --blur=<value>           Number between 1-100 to set bluriness of the output image. Default: 0 (disabled)
   -e, --extractBefore=<value>  a JSON object to pass manipulations to Sharp.js 'extract' method, BEFORE resize
@@ -389,6 +390,7 @@ EXAMPLES
   ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2blur.webp --type webp --quality 20 --blur 10 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
   ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
   ./bin/dev sharpie ./samples/in/rally-car.jpg ./samples/out/rally-car_grey.webp --type webp --quality 70 --greyscale --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev sharpie ./samples/in/model.jpg ./samples/out/model_median.webp --type webp --quality 70 --median 3 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
   ./bin/dev sharpie ./samples/in/logo.svg ./samples/out/logo.svg --type svg
   ./bin/dev sharpie ./samples/in/person.jpg ./samples/out/person_sc.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
 ```
