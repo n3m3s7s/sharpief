@@ -34,6 +34,12 @@ export default class Sharpie extends Command {
       description:
         "Number between 1-100 to set bluriness of the output image. Default: 0 (disabled)",
     }),
+    median: Flags.integer({
+      char: "M",
+      default: 0,
+      description:
+        "Number between 3-5 to apply median filter to the output image. Default: 0 (disabled)",
+    }),
     // flag with a value (-n, --name=VALUE)
     type: Flags.string({
       char: "t",
@@ -113,6 +119,8 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 
 ./bin/dev sharpie ./samples/in/rally-car.jpg ./samples/out/rally-car_grey.webp --type webp --quality 70 --greyscale --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
+./bin/dev sharpie ./samples/in/model.jpg ./samples/out/model_median.webp --type webp --quality 70 --median 3 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+
 ./bin/dev sharpie ./samples/in/logo.svg ./samples/out/logo.svg --type svg
 
 ./bin/dev sharpie ./samples/in/person.jpg ./samples/out/person_sc.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
@@ -159,6 +167,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     const blur = flags.blur;
     const normalize = flags.normalize;
     const greyscale = flags.greyscale;
+    const median = flags.median;
 
     // show a warning
     this.log(
@@ -265,6 +274,13 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     if (blur > 0) {
       this.log("Blurring image to number: " + blur);
       handle.blur(blur);
+    }
+
+    if (median > 0) {
+      this.log("Applying median filter by mask size: " + median);
+      handle.modulate({
+        brightness: 1.025,
+      });
     }
 
     // ENCODING
