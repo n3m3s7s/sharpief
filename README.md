@@ -65,7 +65,7 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/dist/commands/hello/index.ts)_
+_See code: [src/commands/hello/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/src/commands/hello/index.ts)_
 
 ## `sharpief hello:world`
 
@@ -83,7 +83,7 @@ EXAMPLES
   hello world! (./src/commands/hello/world.ts)
 ```
 
-_See code: [dist/commands/hello/world.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/dist/commands/hello/world.ts)_
+_See code: [src/commands/hello/world.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/src/commands/hello/world.ts)_
 
 ## `sharpief help [COMMANDS]`
 
@@ -103,7 +103,7 @@ DESCRIPTION
   Display help for sharpief.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.9/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.20/src/commands/help.ts)_
 
 ## `sharpief plugins`
 
@@ -395,5 +395,5 @@ EXAMPLES
   ./bin/dev sharpie ./samples/in/person.jpg ./samples/out/person_sc.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
 ```
 
-_See code: [dist/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/dist/commands/sharpie/index.ts)_
+_See code: [src/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/src/commands/sharpie/index.ts)_
 <!-- commandsstop -->
