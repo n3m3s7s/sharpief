@@ -1,6 +1,6 @@
 {
   "name": "eve",
-  "version": "0.0.89",
+  "version": "0.0.92",
   "description": "A simple CLI customer wrapper around sharp.js",
   "author": "Fabio Politi",
   "bin": {
@@ -21,7 +21,7 @@
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.0.1",
     "nodeos": "^0.0.0",
-    "sharp": "^0.32.0",
+    "sharp": "^0.33.2",
     "smartcrop-sharp": "^2.0.7",
     "svgo": "^3.0.2"
   },
@@ -62,7 +62,7 @@
     "version": "oclif readme && git add README.md"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "bugs": "https://github.com/N3m3s7s/eve/issues",
   "keywords": [

@@ -20,7 +20,7 @@ $ npm install -g eve
 $ sharpief COMMAND
 running command...
 $ sharpief (--version)
-eve/0.0.89 linux-x64 node-v18.13.0
+eve/0.0.92 linux-x64 node-v20.11.0
 $ sharpief --help [COMMAND]
 USAGE
   $ sharpief COMMAND
@@ -65,7 +65,7 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [src/commands/hello/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/src/commands/hello/index.ts)_
+_See code: [src/commands/hello/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.92/src/commands/hello/index.ts)_
 
 ## `sharpief hello:world`
 
@@ -83,7 +83,7 @@ EXAMPLES
   hello world! (./src/commands/hello/world.ts)
 ```
 
-_See code: [src/commands/hello/world.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/src/commands/hello/world.ts)_
+_See code: [src/commands/hello/world.ts](https://github.com/N3m3s7s/eve/blob/v0.0.92/src/commands/hello/world.ts)_
 
 ## `sharpief help [COMMANDS]`
 
@@ -395,5 +395,5 @@ EXAMPLES
   ./bin/dev sharpie ./samples/in/person.jpg ./samples/out/person_sc.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
 ```
 
-_See code: [src/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.89/src/commands/sharpie/index.ts)_
+_See code: [src/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.92/src/commands/sharpie/index.ts)_
 <!-- commandsstop -->
