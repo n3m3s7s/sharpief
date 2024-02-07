@@ -209,14 +209,18 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
       this.exit(1);
     }
 
+    // read metadata
+    // const metadata = await handle.metadata();
+    // console.log(metadata, 'Meta');
+
     // handle smart crop
     if (
+      null === extractBefore &&
       resize &&
       resize.hasOwnProperty("fit") &&
+      (resize.hasOwnProperty("width") || resize.hasOwnProperty("height")) &&
       ("crop" === resize.fit || "smartcrop" === resize.fit)
     ) {
-      resize.fit = "cover";
-      resize.strategy = "attention";
       const cropParams =  {
         width: resize.width || null,
         height: resize.height || null,
@@ -226,12 +230,22 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
       this.log("Result", result)
       const crop = result.topCrop;
       // override extractBefore
-      extractBefore = {
+      extractBefore = 0 === crop.x && 0 === crop.y ? null : {
         width: crop.width,
         height: crop.height,
         left: crop.x,
         top: crop.y,
       };
+    }
+
+    // CORRECT RESIZE
+    if (
+      resize &&
+      resize.hasOwnProperty("fit") &&
+      ("crop" === resize.fit || "smartcrop" === resize.fit)
+    ) {
+      resize.fit = "cover";
+      resize.strategy = "attention";
     }
 
     if (extractBefore) {
@@ -283,6 +297,10 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
       });
     }
 
+    // COLOR MANAGEMENT
+    // IMAGE COMPARE: https://www.npmjs.com/package/@cloudfour/image-compare
+    handle.keepIccProfile().pipelineColourspace('rgb16').withIccProfile('p3');
+
     // ENCODING
 
     if (encType === Encoders.AVIF) {
@@ -294,7 +312,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     }
 
     if (encType === Encoders.WEBP) {
-      handle.webp({ quality: this.quality, smartSubsample: true });
+      handle.webp({ quality: this.quality, effort: 6, smartSubsample: true });
     }
 
     if (encType === Encoders.JPEG) {
