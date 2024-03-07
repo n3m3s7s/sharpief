@@ -4,6 +4,7 @@ import * as fs from "fs";
 import * as sharp from "sharp";
 import { optimize } from "svgo";
 import { crop as resizecrop } from "smartcrop-sharp";
+import { removeBackground, ImageSource } from "@imgly/background-removal-node";
 
 enum Encoders {
   JPEG = "jpeg",
@@ -84,6 +85,11 @@ export default class Sharpie extends Command {
       default: false,
       description: "Convert to 8-bit greyscale; 256 shades of grey",
     }),
+    removeBg: Flags.boolean({
+      char: "B",
+      default: false,
+      description: "Try to remove the background from the image",
+    }),
   };
 
   static args = [
@@ -124,6 +130,10 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 ./bin/dev sharpie ./samples/in/logo.svg ./samples/out/logo.svg --type svg
 
 ./bin/dev sharpie ./samples/in/person.jpg ./samples/out/person_sc.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
+
+./bin/dev sharpie ./samples/in/shoe.jpg ./samples/out/shoe_nobg.webp --type webp --quality 70 --removeBg --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
+
+./bin/dev sharpie ./samples/in/test.png ./samples/out/test_ff6600.png --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ff6600"}'
 `,
   ];
 
@@ -168,6 +178,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     const normalize = flags.normalize;
     const greyscale = flags.greyscale;
     const median = flags.median;
+    const removeBg = flags.removeBg;
 
     // show a warning
     this.log(
@@ -201,8 +212,29 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     }
 
     //this.exit(0);
+    let handle = null;
 
-    let handle = await this.getSharpHandle(input);
+    // after resize we will remove background
+    if (removeBg) {
+      const localPath = `file://${input}`;
+      this.log("Removing background...", localPath);
+
+
+      const outputBuffer = await this.removeImageBackground(input)
+        .then((buffer) => {
+          console.log("Background removed");
+          return buffer;
+        })
+        .catch((error) => console.error("Error removing background:", error));
+
+      if (outputBuffer) {
+        handle = sharp(outputBuffer, {
+          animated: this.animated,
+        });
+      }
+    } else {
+      handle = await this.getSharpHandle(input);
+    }
 
     if (null === handle) {
       this.error("Could not read or convert input file path");
@@ -221,21 +253,24 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
       (resize.hasOwnProperty("width") || resize.hasOwnProperty("height")) &&
       ("crop" === resize.fit || "smartcrop" === resize.fit)
     ) {
-      const cropParams =  {
+      const cropParams = {
         width: resize.width || null,
         height: resize.height || null,
       };
       this.log("Pre-flight smartcrop options", cropParams);
       const result = await resizecrop(input, cropParams);
-      this.log("Result", result)
+      this.log("Result", result);
       const crop = result.topCrop;
       // override extractBefore
-      extractBefore = 0 === crop.x && 0 === crop.y ? null : {
-        width: crop.width,
-        height: crop.height,
-        left: crop.x,
-        top: crop.y,
-      };
+      extractBefore =
+        0 === crop.x && 0 === crop.y
+          ? null
+          : {
+              width: crop.width,
+              height: crop.height,
+              left: crop.x,
+              top: crop.y,
+            };
     }
 
     // CORRECT RESIZE
@@ -256,10 +291,8 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     if (resize) {
       this.log("Passing Resize options", resize);
       handle.resize(resize);
-      if (
-        resize.hasOwnProperty("background") &&
-        "#ffffff" === resize.background
-      ) {
+      if (resize.hasOwnProperty("background")) {
+        this.log(resize.background, "Flattening to color background...");
         handle.flatten({ background: resize.background });
       }
     }
@@ -299,7 +332,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 
     // COLOR MANAGEMENT
     // IMAGE COMPARE: https://www.npmjs.com/package/@cloudfour/image-compare
-    handle.keepIccProfile().pipelineColourspace('rgb16').withIccProfile('p3');
+    handle.keepIccProfile().pipelineColourspace("rgb16").withIccProfile("p3");
 
     // ENCODING
 
@@ -349,5 +382,23 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 
   protected fileSaved(path: string) {
     this.log(`File successfully saved at "${path}"`);
+  }
+
+  async removeImageBackground(imgSource: ImageSource) {
+    const blob = await removeBackground(imgSource, {
+      debug: true,
+      // publicPath:  ...
+      progress: (key, current, total) => {
+        const [type, subtype] = key.split(':');
+        console.log(
+          `${type} ${subtype} ${((current / total) * 100).toFixed(0)}%`
+        );
+      },
+      output: {
+        quality: 0.8,
+        format: 'image/png' //image/jpeg, image/webp
+      }
+    });
+    return Buffer.from(await blob.arrayBuffer());
   }
 }

@@ -8,3 +8,11 @@
 node_modules
 wip
 oclif.manifest.json
+# Yarn 3 files
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
