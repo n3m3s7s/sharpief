@@ -355,13 +355,14 @@ Convert and resize input image to optimized image output
 ```
 USAGE
   $ sharpief sharpie INPUT OUTPUT [-v] [-h] [-q <value>] [-b <value>] [-M <value>] [-t <value>] [-r <value>]
-    [-e <value>] [-E <value>] [-a] [-s] [-n] [-g]
+    [-e <value>] [-E <value>] [-a] [-s] [-n] [-g] [-B]
 
 ARGUMENTS
   INPUT   input image file path (source)
   OUTPUT  encoded output image file path (target)
 
 FLAGS
+  -B, --removeBg               Try to remove the background from the image
   -E, --extractAfter=<value>   a JSON object to pass manipulations to Sharp.js 'extract' method, AFTER resize
   -M, --median=<value>         Number between 3-5 to apply median filter to the output image. Default: 0 (disabled)
   -a, --animated               Do not remove animation layers
@@ -393,6 +394,8 @@ EXAMPLES
   ./bin/dev sharpie ./samples/in/model.jpg ./samples/out/model_median.webp --type webp --quality 70 --median 3 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
   ./bin/dev sharpie ./samples/in/logo.svg ./samples/out/logo.svg --type svg
   ./bin/dev sharpie ./samples/in/person.jpg ./samples/out/person_sc.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
+  ./bin/dev sharpie ./samples/in/shoe.jpg ./samples/out/shoe_nobg.webp --type webp --quality 70 --removeBg --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
+  ./bin/dev sharpie ./samples/in/test.png ./samples/out/test_ff6600.png --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ff6600"}'
 ```
 
 _See code: [src/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.92/src/commands/sharpie/index.ts)_
