@@ -1,7 +1,7 @@
-import { Command, Flags } from "@oclif/core";
+import {Args, Command, Flags} from '@oclif/core'
 
-import * as fs from "fs";
-import * as sharp from "sharp";
+import fs from "fs";
+import sharp from "sharp";
 import { optimize } from "svgo";
 import { crop as resizecrop } from "smartcrop-sharp";
 //import { removeBackground, ImageSource } from "@imgly/background-removal-node";
@@ -92,18 +92,10 @@ export default class Sharpie extends Command {
     }),
   };
 
-  static args = [
-    {
-      name: "input",
-      required: true,
-      description: "input image file path (source)",
-    },
-    {
-      name: "output",
-      required: true,
-      description: "encoded output image file path (target)",
-    },
-  ];
+  static args = {
+    input: Args.string({description: 'input image file path (source)', required: true}),
+    output: Args.string({description: 'encoded output image file path (target)', required: true}),
+  }
 
   static examples = [
     `$ ./bin/dev sharpie ./samples/in/1.jpg ./samples/out/1.avif --type avif --quality 50
