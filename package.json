@@ -17,13 +17,12 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
-    "@imgly/background-removal-node": "^1.4.5",
     "@oclif/core": "^1",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.0.1",
     "nodeos": "^0.0.0",
     "sharp": "^0.33.2",
-    "smartcrop-sharp": "^2.0.7",
+    "smartcrop-sharp": "https://github.com/n3m3s7s/smartcrop-sharp",
     "svgo": "^3.0.2"
   },
   "devDependencies": {

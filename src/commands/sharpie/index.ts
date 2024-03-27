@@ -4,7 +4,7 @@ import * as fs from "fs";
 import * as sharp from "sharp";
 import { optimize } from "svgo";
 import { crop as resizecrop } from "smartcrop-sharp";
-import { removeBackground, ImageSource } from "@imgly/background-removal-node";
+//import { removeBackground, ImageSource } from "@imgly/background-removal-node";
 
 enum Encoders {
   JPEG = "jpeg",
@@ -216,7 +216,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 
     // after resize we will remove background
     if (removeBg) {
-      const localPath = `file://${input}`;
+      /*const localPath = `file://${input}`;
       this.log("Removing background...", localPath);
 
 
@@ -231,7 +231,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
         handle = sharp(outputBuffer, {
           animated: this.animated,
         });
-      }
+      }*/
     } else {
       handle = await this.getSharpHandle(input);
     }
@@ -384,7 +384,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     this.log(`File successfully saved at "${path}"`);
   }
 
-  async removeImageBackground(imgSource: ImageSource) {
+  /*async removeImageBackground(imgSource: ImageSource) {
     const blob = await removeBackground(imgSource, {
       debug: true,
       // publicPath:  ...
@@ -400,5 +400,5 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
       }
     });
     return Buffer.from(await blob.arrayBuffer());
-  }
+  }*/
 }
