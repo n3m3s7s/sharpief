@@ -20,7 +20,7 @@ $ npm install -g eve
 $ sharpief COMMAND
 running command...
 $ sharpief (--version)
-eve/0.0.92 linux-x64 node-v20.11.0
+eve/0.0.96 linux-x64 node-v20.11.0
 $ sharpief --help [COMMAND]
 USAGE
   $ sharpief COMMAND
@@ -30,17 +30,18 @@ USAGE
 # Commands
 <!-- commands -->
 * [`sharpief hello PERSON`](#sharpief-hello-person)
-* [`sharpief hello:world`](#sharpief-helloworld)
-* [`sharpief help [COMMANDS]`](#sharpief-help-commands)
+* [`sharpief hello world`](#sharpief-hello-world)
+* [`sharpief help [COMMAND]`](#sharpief-help-command)
 * [`sharpief plugins`](#sharpief-plugins)
 * [`sharpief plugins:install PLUGIN...`](#sharpief-pluginsinstall-plugin)
 * [`sharpief plugins:inspect PLUGIN...`](#sharpief-pluginsinspect-plugin)
 * [`sharpief plugins:install PLUGIN...`](#sharpief-pluginsinstall-plugin-1)
 * [`sharpief plugins:link PLUGIN`](#sharpief-pluginslink-plugin)
 * [`sharpief plugins:uninstall PLUGIN...`](#sharpief-pluginsuninstall-plugin)
+* [`sharpief plugins reset`](#sharpief-plugins-reset)
 * [`sharpief plugins:uninstall PLUGIN...`](#sharpief-pluginsuninstall-plugin-1)
 * [`sharpief plugins:uninstall PLUGIN...`](#sharpief-pluginsuninstall-plugin-2)
-* [`sharpief plugins:update`](#sharpief-pluginsupdate)
+* [`sharpief plugins update`](#sharpief-plugins-update)
 * [`sharpief sharpie INPUT OUTPUT`](#sharpief-sharpie-input-output)
 
 ## `sharpief hello PERSON`
@@ -65,15 +66,15 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [src/commands/hello/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.92/src/commands/hello/index.ts)_
+_See code: [src/commands/hello/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.96/src/commands/hello/index.ts)_
 
-## `sharpief hello:world`
+## `sharpief hello world`
 
 Say hello world
 
 ```
 USAGE
-  $ sharpief hello:world
+  $ sharpief hello world
 
 DESCRIPTION
   Say hello world
@@ -83,18 +84,18 @@ EXAMPLES
   hello world! (./src/commands/hello/world.ts)
 ```
 
-_See code: [src/commands/hello/world.ts](https://github.com/N3m3s7s/eve/blob/v0.0.92/src/commands/hello/world.ts)_
+_See code: [src/commands/hello/world.ts](https://github.com/N3m3s7s/eve/blob/v0.0.96/src/commands/hello/world.ts)_
 
-## `sharpief help [COMMANDS]`
+## `sharpief help [COMMAND]`
 
 Display help for sharpief.
 
 ```
 USAGE
-  $ sharpief help [COMMANDS] [-n]
+  $ sharpief help [COMMAND...] [-n]
 
 ARGUMENTS
-  COMMANDS  Command to show help for.
+  COMMAND...  Command to show help for.
 
 FLAGS
   -n, --nested-commands  Include all nested commands in the output.
@@ -103,7 +104,7 @@ DESCRIPTION
   Display help for sharpief.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.20/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.20/src/commands/help.ts)_
 
 ## `sharpief plugins`
 
@@ -111,10 +112,13 @@ List installed plugins.
 
 ```
 USAGE
-  $ sharpief plugins [--core]
+  $ sharpief plugins [--json] [--core]
 
 FLAGS
   --core  Show core plugins.
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
   List installed plugins.
@@ -123,7 +127,7 @@ EXAMPLES
   $ sharpief plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.10/src/commands/plugins/index.ts)_
 
 ## `sharpief plugins:install PLUGIN...`
 
@@ -131,15 +135,19 @@ Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ sharpief plugins:install PLUGIN...
+  $ sharpief plugins add plugins:install PLUGIN...
 
 ARGUMENTS
-  PLUGIN  Plugin to install.
+  PLUGIN...  Plugin to install.
 
 FLAGS
   -f, --force    Run yarn install with force flag.
   -h, --help     Show CLI help.
-  -v, --verbose
+  -s, --silent   Silences yarn output.
+  -v, --verbose  Show verbose yarn output.
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
   Installs a plugin into the CLI.
@@ -153,14 +161,14 @@ DESCRIPTION
 
 
 ALIASES
-  $ sharpief plugins:add
+  $ sharpief plugins add
 
 EXAMPLES
-  $ sharpief plugins:install myplugin 
+  $ sharpief plugins add myplugin 
 
-  $ sharpief plugins:install https://github.com/someuser/someplugin
+  $ sharpief plugins add https://github.com/someuser/someplugin
 
-  $ sharpief plugins:install someuser/someplugin
+  $ sharpief plugins add someuser/someplugin
 ```
 
 ## `sharpief plugins:inspect PLUGIN...`
@@ -169,10 +177,10 @@ Displays installation properties of a plugin.
 
 ```
 USAGE
-  $ sharpief plugins:inspect PLUGIN...
+  $ sharpief plugins inspect PLUGIN...
 
 ARGUMENTS
-  PLUGIN  [default: .] Plugin to inspect.
+  PLUGIN...  [default: .] Plugin to inspect.
 
 FLAGS
   -h, --help     Show CLI help.
@@ -185,10 +193,10 @@ DESCRIPTION
   Displays installation properties of a plugin.
 
 EXAMPLES
-  $ sharpief plugins:inspect myplugin
+  $ sharpief plugins inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.10/src/commands/plugins/inspect.ts)_
 
 ## `sharpief plugins:install PLUGIN...`
 
@@ -196,15 +204,19 @@ Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ sharpief plugins:install PLUGIN...
+  $ sharpief plugins install PLUGIN...
 
 ARGUMENTS
-  PLUGIN  Plugin to install.
+  PLUGIN...  Plugin to install.
 
 FLAGS
   -f, --force    Run yarn install with force flag.
   -h, --help     Show CLI help.
-  -v, --verbose
+  -s, --silent   Silences yarn output.
+  -v, --verbose  Show verbose yarn output.
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
   Installs a plugin into the CLI.
@@ -218,17 +230,17 @@ DESCRIPTION
 
 
 ALIASES
-  $ sharpief plugins:add
+  $ sharpief plugins add
 
 EXAMPLES
-  $ sharpief plugins:install myplugin 
+  $ sharpief plugins install myplugin 
 
-  $ sharpief plugins:install https://github.com/someuser/someplugin
+  $ sharpief plugins install https://github.com/someuser/someplugin
 
-  $ sharpief plugins:install someuser/someplugin
+  $ sharpief plugins install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.10/src/commands/plugins/install.ts)_
 
 ## `sharpief plugins:link PLUGIN`
 
@@ -236,14 +248,15 @@ Links a plugin into the CLI for development.
 
 ```
 USAGE
-  $ sharpief plugins:link PLUGIN
+  $ sharpief plugins link PLUGIN
 
 ARGUMENTS
   PATH  [default: .] path to plugin
 
 FLAGS
-  -h, --help     Show CLI help.
+  -h, --help          Show CLI help.
   -v, --verbose
+      --[no-]install  Install dependencies after linking the plugin.
 
 DESCRIPTION
   Links a plugin into the CLI for development.
@@ -254,10 +267,10 @@ DESCRIPTION
 
 
 EXAMPLES
-  $ sharpief plugins:link myplugin
+  $ sharpief plugins link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.10/src/commands/plugins/link.ts)_
 
 ## `sharpief plugins:uninstall PLUGIN...`
 
@@ -265,10 +278,10 @@ Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ sharpief plugins:uninstall PLUGIN...
+  $ sharpief plugins remove plugins:uninstall PLUGIN...
 
 ARGUMENTS
-  PLUGIN  plugin to uninstall
+  PLUGIN...  plugin to uninstall
 
 FLAGS
   -h, --help     Show CLI help.
@@ -278,9 +291,27 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ sharpief plugins:unlink
-  $ sharpief plugins:remove
+  $ sharpief plugins unlink
+  $ sharpief plugins remove
+
+EXAMPLES
+  $ sharpief plugins remove myplugin
 ```
+
+## `sharpief plugins reset`
+
+Remove all user-installed and linked plugins.
+
+```
+USAGE
+  $ sharpief plugins reset [--hard] [--reinstall]
+
+FLAGS
+  --hard       Delete node_modules and package manager related files in addition to uninstalling plugins.
+  --reinstall  Reinstall all plugins after uninstalling.
+```
+
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.10/src/commands/plugins/reset.ts)_
 
 ## `sharpief plugins:uninstall PLUGIN...`
 
@@ -288,10 +319,10 @@ Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ sharpief plugins:uninstall PLUGIN...
+  $ sharpief plugins uninstall PLUGIN...
 
 ARGUMENTS
-  PLUGIN  plugin to uninstall
+  PLUGIN...  plugin to uninstall
 
 FLAGS
   -h, --help     Show CLI help.
@@ -301,11 +332,14 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ sharpief plugins:unlink
-  $ sharpief plugins:remove
+  $ sharpief plugins unlink
+  $ sharpief plugins remove
+
+EXAMPLES
+  $ sharpief plugins uninstall myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.10/src/commands/plugins/uninstall.ts)_
 
 ## `sharpief plugins:uninstall PLUGIN...`
 
@@ -313,10 +347,10 @@ Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ sharpief plugins:uninstall PLUGIN...
+  $ sharpief plugins unlink plugins:uninstall PLUGIN...
 
 ARGUMENTS
-  PLUGIN  plugin to uninstall
+  PLUGIN...  plugin to uninstall
 
 FLAGS
   -h, --help     Show CLI help.
@@ -326,17 +360,20 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ sharpief plugins:unlink
-  $ sharpief plugins:remove
+  $ sharpief plugins unlink
+  $ sharpief plugins remove
+
+EXAMPLES
+  $ sharpief plugins unlink myplugin
 ```
 
-## `sharpief plugins:update`
+## `sharpief plugins update`
 
 Update installed plugins.
 
 ```
 USAGE
-  $ sharpief plugins:update [-h] [-v]
+  $ sharpief plugins update [-h] [-v]
 
 FLAGS
   -h, --help     Show CLI help.
@@ -346,7 +383,7 @@ DESCRIPTION
   Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.3.10/src/commands/plugins/update.ts)_
 
 ## `sharpief sharpie INPUT OUTPUT`
 
@@ -398,5 +435,5 @@ EXAMPLES
   ./bin/dev sharpie ./samples/in/test.png ./samples/out/test_ff6600.png --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ff6600"}'
 ```
 
-_See code: [src/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.92/src/commands/sharpie/index.ts)_
+_See code: [src/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.96/src/commands/sharpie/index.ts)_
 <!-- commandsstop -->

@@ -1,5 +1,5 @@
 #!/bin/bash
-version=sharpief-v0.0.92-a68afdf-linux-x64
+version=sharpief-v0.0.96-6099b6a-linux-x64
 echo "duplicating from tar.gz"
 cp "dist/$version.tar.gz" "dist/$version-vanilla.tar.gz"
 echo "converting from tar.gz to tar"
