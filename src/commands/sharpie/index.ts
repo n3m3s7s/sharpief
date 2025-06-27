@@ -1,9 +1,9 @@
-import {Args, Command, Flags} from '@oclif/core'
+import { Args, Command, Flags } from "@oclif/core";
 
 import fs from "fs";
 import sharp from "sharp";
 import { optimize } from "svgo";
-import { crop as resizecrop } from "smartcrop-sharp";
+//import { crop as resizecrop } from "smartcrop-sharp";
 //import { removeBackground, ImageSource } from "@imgly/background-removal-node";
 
 enum Encoders {
@@ -93,39 +93,45 @@ export default class Sharpie extends Command {
   };
 
   static args = {
-    input: Args.string({description: 'input image file path (source)', required: true}),
-    output: Args.string({description: 'encoded output image file path (target)', required: true}),
-  }
+    input: Args.string({
+      description: "input image file path (source)",
+      required: true,
+    }),
+    output: Args.string({
+      description: "encoded output image file path (target)",
+      required: true,
+    }),
+  };
 
   static examples = [
-    `$ ./bin/dev sharpie ./samples/in/1.jpg ./samples/out/1.avif --type avif --quality 50
+    `$ ./bin/dev.js sharpie ./samples/in/1.jpg ./samples/out/1.avif --type avif --quality 50
 Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 
-./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+./bin/dev.js sharpie ./samples/in/2.jpg ./samples/out/2.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
-./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2after.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}' --extractAfter '{"left": 10, "top": 50, "width": 100, "height": 80}'
+./bin/dev.js sharpie ./samples/in/2.jpg ./samples/out/2after.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}' --extractAfter '{"left": 10, "top": 50, "width": 100, "height": 80}'
 
-./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2before.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}' --extractBefore '{"left": 10, "top": 50, "width": 600, "height": 800}'
+./bin/dev.js sharpie ./samples/in/2.jpg ./samples/out/2before.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}' --extractBefore '{"left": 10, "top": 50, "width": 600, "height": 800}'
 
-./bin/dev sharpie ./samples/in/animated.gif ./samples/out/animated.webp --type webp --quality 90 --animated
+./bin/dev.js sharpie ./samples/in/animated.gif ./samples/out/animated.webp --type webp --quality 90 --animated
 
-./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2sharp.webp --type webp --quality 70 --sharpen --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+./bin/dev.js sharpie ./samples/in/2.jpg ./samples/out/2sharp.webp --type webp --quality 70 --sharpen --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
-./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2blur.webp --type webp --quality 20 --blur 10 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+./bin/dev.js sharpie ./samples/in/2.jpg ./samples/out/2blur.webp --type webp --quality 20 --blur 10 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
-./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+./bin/dev.js sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
-./bin/dev sharpie ./samples/in/rally-car.jpg ./samples/out/rally-car_grey.webp --type webp --quality 70 --greyscale --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+./bin/dev.js sharpie ./samples/in/rally-car.jpg ./samples/out/rally-car_grey.webp --type webp --quality 70 --greyscale --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
-./bin/dev sharpie ./samples/in/model.jpg ./samples/out/model_median.webp --type webp --quality 70 --median 3 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+./bin/dev.js sharpie ./samples/in/model.jpg ./samples/out/model_median.webp --type webp --quality 70 --median 3 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
 
-./bin/dev sharpie ./samples/in/logo.svg ./samples/out/logo.svg --type svg
+./bin/dev.js sharpie ./samples/in/logo.svg ./samples/out/logo.svg --type svg
 
-./bin/dev sharpie ./samples/in/person.jpg ./samples/out/person_sc.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
+./bin/dev.js sharpie ./samples/in/person.jpg ./samples/out/person_sc.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
 
-./bin/dev sharpie ./samples/in/shoe.jpg ./samples/out/shoe_nobg.webp --type webp --quality 70 --removeBg --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
+./bin/dev.js sharpie ./samples/in/shoe.jpg ./samples/out/shoe_nobg.webp --type webp --quality 70 --removeBg --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
 
-./bin/dev sharpie ./samples/in/test.png ./samples/out/test_ff6600.png --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ff6600"}'
+./bin/dev.js sharpie ./samples/in/test.png ./samples/out/test_ff6600.png --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ff6600"}'
 `,
   ];
 
@@ -238,7 +244,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     // console.log(metadata, 'Meta');
 
     // handle smart crop
-    if (
+    /*if (
       null === extractBefore &&
       resize &&
       resize.hasOwnProperty("fit") &&
@@ -263,7 +269,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
               left: crop.x,
               top: crop.y,
             };
-    }
+    }*/
 
     // CORRECT RESIZE
     if (
@@ -282,11 +288,22 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
 
     if (resize) {
       this.log("Passing Resize options", resize);
+      const unflatten =
+        resize.hasOwnProperty("background") &&
+        ("alpha" === resize.background || "transparent" === resize.background || "#alpha" === resize.background || "#transparent" === resize.background);
+      if (unflatten) {
+        delete resize["background"];
+      }
+      this.log(resize, "Sharp resize params...");
       handle.resize(resize);
       if (resize.hasOwnProperty("background")) {
         this.log(resize.background, "Flattening to color background...");
         handle.flatten({ background: resize.background });
       }
+      /*if (unflatten) {
+        this.log("Unflattening to color background (white to transparent)");
+        handle.unflatten();
+      }*/
     }
 
     if (extractAfter) {
@@ -331,7 +348,7 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
     if (encType === Encoders.AVIF) {
       handle.avif({
         quality: this.quality,
-        effort: 5,
+        effort: 3,
         chromaSubsampling: "4:2:0",
       });
     }

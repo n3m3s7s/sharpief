@@ -20,7 +20,7 @@ $ npm install -g eve
 $ sharpief COMMAND
 running command...
 $ sharpief (--version)
-eve/0.0.96 linux-x64 node-v20.11.0
+eve/0.0.97 linux-x64 node-v19.9.0
 $ sharpief --help [COMMAND]
 USAGE
   $ sharpief COMMAND
@@ -35,12 +35,12 @@ USAGE
 * [`sharpief plugins`](#sharpief-plugins)
 * [`sharpief plugins:install PLUGIN...`](#sharpief-pluginsinstall-plugin)
 * [`sharpief plugins:inspect PLUGIN...`](#sharpief-pluginsinspect-plugin)
-* [`sharpief plugins:install PLUGIN...`](#sharpief-pluginsinstall-plugin-1)
+* [`sharpief plugins:install PLUGIN...`](#sharpief-pluginsinstall-plugin)
 * [`sharpief plugins:link PLUGIN`](#sharpief-pluginslink-plugin)
 * [`sharpief plugins:uninstall PLUGIN...`](#sharpief-pluginsuninstall-plugin)
 * [`sharpief plugins reset`](#sharpief-plugins-reset)
-* [`sharpief plugins:uninstall PLUGIN...`](#sharpief-pluginsuninstall-plugin-1)
-* [`sharpief plugins:uninstall PLUGIN...`](#sharpief-pluginsuninstall-plugin-2)
+* [`sharpief plugins:uninstall PLUGIN...`](#sharpief-pluginsuninstall-plugin)
+* [`sharpief plugins:uninstall PLUGIN...`](#sharpief-pluginsuninstall-plugin)
 * [`sharpief plugins update`](#sharpief-plugins-update)
 * [`sharpief sharpie INPUT OUTPUT`](#sharpief-sharpie-input-output)
 
@@ -66,7 +66,7 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [src/commands/hello/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.96/src/commands/hello/index.ts)_
+_See code: [src/commands/hello/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.97/src/commands/hello/index.ts)_
 
 ## `sharpief hello world`
 
@@ -84,7 +84,7 @@ EXAMPLES
   hello world! (./src/commands/hello/world.ts)
 ```
 
-_See code: [src/commands/hello/world.ts](https://github.com/N3m3s7s/eve/blob/v0.0.96/src/commands/hello/world.ts)_
+_See code: [src/commands/hello/world.ts](https://github.com/N3m3s7s/eve/blob/v0.0.97/src/commands/hello/world.ts)_
 
 ## `sharpief help [COMMAND]`
 
@@ -104,7 +104,7 @@ DESCRIPTION
   Display help for sharpief.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.20/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.2.29/src/commands/help.ts)_
 
 ## `sharpief plugins`
 
@@ -418,22 +418,22 @@ DESCRIPTION
   Convert and resize input image to optimized image output
 
 EXAMPLES
-  $ ./bin/dev sharpie ./samples/in/1.jpg ./samples/out/1.avif --type avif --quality 50
+  $ ./bin/dev.js sharpie ./samples/in/1.jpg ./samples/out/1.avif --type avif --quality 50
   Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
-  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
-  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2after.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}' --extractAfter '{"left": 10, "top": 50, "width": 100, "height": 80}'
-  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2before.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}' --extractBefore '{"left": 10, "top": 50, "width": 600, "height": 800}'
-  ./bin/dev sharpie ./samples/in/animated.gif ./samples/out/animated.webp --type webp --quality 90 --animated
-  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2sharp.webp --type webp --quality 70 --sharpen --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
-  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2blur.webp --type webp --quality 20 --blur 10 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
-  ./bin/dev sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
-  ./bin/dev sharpie ./samples/in/rally-car.jpg ./samples/out/rally-car_grey.webp --type webp --quality 70 --greyscale --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
-  ./bin/dev sharpie ./samples/in/model.jpg ./samples/out/model_median.webp --type webp --quality 70 --median 3 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
-  ./bin/dev sharpie ./samples/in/logo.svg ./samples/out/logo.svg --type svg
-  ./bin/dev sharpie ./samples/in/person.jpg ./samples/out/person_sc.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
-  ./bin/dev sharpie ./samples/in/shoe.jpg ./samples/out/shoe_nobg.webp --type webp --quality 70 --removeBg --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
-  ./bin/dev sharpie ./samples/in/test.png ./samples/out/test_ff6600.png --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ff6600"}'
+  ./bin/dev.js sharpie ./samples/in/2.jpg ./samples/out/2.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev.js sharpie ./samples/in/2.jpg ./samples/out/2after.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}' --extractAfter '{"left": 10, "top": 50, "width": 100, "height": 80}'
+  ./bin/dev.js sharpie ./samples/in/2.jpg ./samples/out/2before.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}' --extractBefore '{"left": 10, "top": 50, "width": 600, "height": 800}'
+  ./bin/dev.js sharpie ./samples/in/animated.gif ./samples/out/animated.webp --type webp --quality 90 --animated
+  ./bin/dev.js sharpie ./samples/in/2.jpg ./samples/out/2sharp.webp --type webp --quality 70 --sharpen --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev.js sharpie ./samples/in/2.jpg ./samples/out/2blur.webp --type webp --quality 20 --blur 10 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev.js sharpie ./samples/in/2.jpg ./samples/out/2normalize.webp --type webp --quality 70 --normalize --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev.js sharpie ./samples/in/rally-car.jpg ./samples/out/rally-car_grey.webp --type webp --quality 70 --greyscale --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev.js sharpie ./samples/in/model.jpg ./samples/out/model_median.webp --type webp --quality 70 --median 3 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ffffff"}'
+  ./bin/dev.js sharpie ./samples/in/logo.svg ./samples/out/logo.svg --type svg
+  ./bin/dev.js sharpie ./samples/in/person.jpg ./samples/out/person_sc.webp --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
+  ./bin/dev.js sharpie ./samples/in/shoe.jpg ./samples/out/shoe_nobg.webp --type webp --quality 70 --removeBg --resize '{"width": 500, "height": 500, "fit": "crop", "background": "#ffffff"}'
+  ./bin/dev.js sharpie ./samples/in/test.png ./samples/out/test_ff6600.png --type webp --quality 70 --resize '{"width": 500, "height": 500, "fit": "contain", "background": "#ff6600"}'
 ```
 
-_See code: [src/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.96/src/commands/sharpie/index.ts)_
+_See code: [src/commands/sharpie/index.ts](https://github.com/N3m3s7s/eve/blob/v0.0.97/src/commands/sharpie/index.ts)_
 <!-- commandsstop -->
