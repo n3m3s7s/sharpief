@@ -1,1 +1,1 @@
-sharpief-v0.0.96-6099b6a-linux-x64.tar.gz
+sharpief-v0.0.97-b637b0c-linux-x64.tar.gz
