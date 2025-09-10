@@ -296,10 +296,10 @@ Converting file ./samples/in/1.jpg using "avif" encoder with quality 50
       }
       this.log(resize, "Sharp resize params...");
       handle.resize(resize);
-      if (resize.hasOwnProperty("background")) {
+      /*if (resize.hasOwnProperty("background")) {
         this.log(resize.background, "Flattening to color background...");
         handle.flatten({ background: resize.background });
-      }
+      }*/
       /*if (unflatten) {
         this.log("Unflattening to color background (white to transparent)");
         handle.unflatten();
